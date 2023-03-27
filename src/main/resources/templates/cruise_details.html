@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>[[#{CruiseDetails}]]</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<th:block th:replace="~{blocks/header :: background(page='cruise_details')}"></th:block>
+<br>
+<table class="table table-hover text" >
+    <tr>
+        <td>[[#{CruiseName}]]:</td>
+        <td>[[${cruise.cruiseName}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{ShipName}]]:</td>
+        <td >[[${cruise.shipName}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{Description}]]:</td>
+        <td >[[${cruise.description}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{Route}]]:</td>
+        <td >[[${route.route}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{StartTime}]]:</td>
+        <td >[[${cruise.startTimeString}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{EndTime}]]:</td>
+        <td >[[${cruise.endTimeString}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{Duration}]]:</td>
+        <td >[[${cruise.duration}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{Price}]]:</td>
+        <td >[[${cruise.price}]] </td>
+    </tr>
+    <tr>
+        <td >[[#{NumberOfPorts}]]:</td>
+        <td >[[${cruise.numberOfPorts}]] </td>
+    </tr>
+</table>
+<div align="center"> <a class=" btn btn-light" th:href="@{/cruises_list}">[[#{BackCruises}]]</a></div>
+<th:block th:insert="~{blocks/header :: footer(position='absolute')}"></th:block>
+</body>
+</html>

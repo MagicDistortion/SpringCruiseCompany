@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="locale" align="right">
+
+    <select class="form-select form-select-lg mb-3 select"
+            style="background: rgba(252,176,69,0.7);color:white;" aria-label=".form-select-lg example" id="locales">
+        <option value="" th:text="#{LangPick}"></option>
+        <option value="en" th:text="#{SetEnglish}"></option>
+        <option value="ua" th:text="#{SetUkrainian}"></option>
+    </select>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                var location = window.location.href.split('?')[0];
+                if (selectedOption != ''){
+                 document.location.href=location+'?lang='+ selectedOption;
+                }
+            });
+        });
+    </script>
+</div>
+
+<div th:fragment="captcha">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        window.onload = function(){
+            const form = document.getElementById("login");
+            const error = document.getElementById("error");
+            form.addEventListener("submit",function(event){
+                event.preventDefault();
+                const response = grecaptcha.getResponse();
+                if(response){
+                    form.submit();
+                }else{
+                    error.innerHTML= "[[#{PassVerification}]]";
+                }
+            });
+        }
+    </script>
+</div>

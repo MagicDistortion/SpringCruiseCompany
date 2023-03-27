@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header">
+    <div class="performan_courtesy">
+        <ul>
+            <li><a href="/index">[[#{Main}]]</a>
+                <ul>
+                    <li><a href="/contacts">[[#{Contacts}]]</a></li>
+                    <li><a href="/about_us">[[#{AboutUs}]]</a></li>
+                </ul>
+            </li>
+            <li><a href="/ships_list">[[#{Ships}]]</a>
+                <ul>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+            </li>
+            <li><a href="/cruises_list">[[#{Cruises}]]</a>
+                <ul>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+            </li>
+            <th:block th:if="!${user}">
+                <li><a href="/registration">[[#{Register}]]</a></li>
+                <li><a href="/index">[[#{LogIn}]]</a></li>
+            </th:block>
+            <th:block th:if="${user}">
+                <li><a href="/edit_profile">[[#{EMP}]]</a></li>
+                <li><a href="#" th:href="@{/logout}">[[#{LogOut}]]</a></li>
+            </th:block>
+            <li>
+                <th:block th:insert="~{blocks/scripts :: locale}"></th:block>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<footer th:fragment="footer(position)" th:style="'position:'+${position}+';top: 90%;width: 100%;color:white;'">
+    <hr>
+    <p align="center">© 2023 Oceania Cruises</p>
+</footer>
+
+
+<style th:fragment="background(page)">
+    body {
+    background-image: url(/images/[[${page}]].jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    }
+</style>
+
+<div th:fragment="page(url,list)" style="display: flex;justify-content: center;">
+    <ul class="pagination">
+        <th:block th:each="el: ${list.number}">
+            <th:block th:if="${el}>0">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{${url}+'?page='+${el-1}+'&sort='+${list.sort.toString().split(':')[0]}+'&size='+${list.size}}"><<</a>
+                </li>
+            </th:block>
+            <li class="page-item active">
+                <a class="page-link"
+                   th:href="@{${url}+'?page='+${el}+'&sort='+${list.sort.toString().split(':')[0]}+'&size='+${list.size}}">[[${el+1}]]</a>
+            </li>
+            <th:block th:each="el: ${list.number}">
+                <th:block th:if="${el}<${list.totalPages-1}">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{${url}+'?page='+${el+1}+'&sort='+${list.sort.toString().split(':')[0]}+'&size='+${list.size}}">>></a>
+                    </li>
+                </th:block>
+            </th:block>
+        </th:block>
+    </ul>
+</div>

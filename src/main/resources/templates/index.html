@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>[[#{Main}]]</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<th:block th:replace="~{blocks/header :: background(page='index')}"></th:block>
+<th:block th:insert="~{blocks/header :: header}"></th:block>
+<br><br><br><br>
+<div th:if="!${user}">
+    <form id="login" th:action="@{/index}" method="post" align="center" class="container mt-5 mb-5">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <table align="center">
+            <tr>
+                <td class="text" th:text="#{Login}"></td>
+                <td><input name="username" class="form-control" th:placeholder="#{EnterLogin}"
+                           pattern="^[0-9A-Za-zА-Яа-яІіЇїєЄ]{2,32}" required/></td>
+            </tr>
+            <tr>
+                <td class="text" th:text="#{Password}"></td>
+                <td><input type="password" class="form-control" name="password" th:placeholder="#{EnterPassword}"
+                           pattern="^[0-9A-Za-zА-Яа-яІіЇїєЄ]{4,32}" required/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="g-recaptcha" data-sitekey="6LcnqxkkAAAAAEiO0dh5hcpAmxy-sgibiy3hbbAx" required></div>
+                </td>
+            </tr>
+        </table>
+        <div th:if="#{error}" ><div class="errorText" id="error"></div></div>
+        <div><input type="submit" class="btn btn-dark" th:value="#{LogIn}"/></div>
+    </form>
+</div>
+<p class="errorTextSm" th:if="${error_message}" th:text="${error_message}"></p>
+
+<th:block th:insert="~{blocks/scripts :: captcha}"></th:block>
+<th:block th:insert="~{blocks/header :: footer(position='absolute')}"></th:block>
+</body>
+</html>
+
