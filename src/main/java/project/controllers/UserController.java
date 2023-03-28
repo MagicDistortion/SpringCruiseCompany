@@ -45,7 +45,7 @@ public class UserController extends ParentController {
         return "redirect:/index";
     }
 
-    private void extracted(UserEditDTO userEditDTO, User user) {
+    private void setUserStates(UserEditDTO userEditDTO, User user) {
         userEditDTO.setSurname(user.getSurname());
         userEditDTO.setName(user.getName());
         userEditDTO.setUsername(user.getUsername());
@@ -55,7 +55,7 @@ public class UserController extends ParentController {
 
     @GetMapping("/edit_profile")
     public String editPage(UserEditDTO userEditDTO, UserPasswordDTO userPasswordDTO, @ModelAttribute User user) {
-        extracted(userEditDTO, user);
+        setUserStates(userEditDTO, user);
         return "edit_profile";
     }
 
@@ -85,7 +85,7 @@ public class UserController extends ParentController {
     public String editUserPassword(UserEditDTO userEditDTO, @AuthenticationPrincipal User user, @Valid UserPasswordDTO userPasswordDTO
             , BindingResult bindingResult, Model model) {
         User userFromDB = userRepo.findById(user.getId()).orElseThrow(RuntimeException::new);
-        extracted(userEditDTO, userFromDB);
+        setUserStates(userEditDTO, userFromDB);
         if (bindingResult.hasErrors()) return "edit_profile";
         userFromDB.setPassword(passwordEncoder.encode(userPasswordDTO.getPassword()));
         userRepo.saveAndFlush(userFromDB);

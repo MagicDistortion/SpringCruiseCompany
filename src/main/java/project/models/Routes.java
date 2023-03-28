@@ -2,32 +2,32 @@ package project.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Entity
 @NoArgsConstructor
 @Table(name = "route", uniqueConstraints = {@UniqueConstraint(columnNames = "id"), @UniqueConstraint(columnNames = "name")})
-public class Route {
+public class Routes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Size(min = 2,max = 32,message = "RouteName must be between 2 and 32 characters")
+    @Size(min = 2, max = 32, message = "RouteName must be between 2 and 32 characters")
     private String name;
-    @NotEmpty(message = "Route should not be empty")
+    @NotEmpty(message = "Route must not be empty")
+    @Pattern(regexp ="([0-9A-Za-zА-Яа-яІіЇїєЄ ]+;)+",message = "The route must be written via ;")
     private String route;
     @Transient
-    private List<String> list;
+    private int size;
 
-    public Route(String name, String route) {
+    public Routes(String name, String route) {
         this.name = name;
         this.route = route;
-        this.list = Arrays.stream(route.split(",")).collect(Collectors.toList());
+        this.size = Arrays.stream(route.split(";")).toList().size();
     }
 }

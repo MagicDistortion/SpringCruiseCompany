@@ -30,6 +30,12 @@ font-size: 30px;
 font-weight: 600;
 }
 
+.blueTextSm{
+color:#00FFFF;
+font-size: 20px;
+font-weight: 600;
+}
+
 .errorText{
     background-color: black;
     font-size: 25px;
@@ -114,7 +120,7 @@ transition: .3s background-color;
 }
 
 .performan_courtesy a:hover {
-background-color: #005f5f;
+background-color: black;
 }
 
 .performan_courtesy a.active {
@@ -167,6 +173,19 @@ font-size: .8em;
     }
 }
 .select option {
+  margin: 40px;
+  background: rgb(20,22,142);
+  color: white;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Selector */
+.mySelect{
+background: transparent;
+color:white;
+}
+
+.mySelect option {
   margin: 40px;
   background: rgb(20,22,142);
   color: white;

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import project.models.User;
 import project.repos.UserRepo;
 
+import java.util.Optional;
+
 public abstract class ParentController {
     @Autowired
     protected MessageSource messageSource;
@@ -17,7 +19,9 @@ public abstract class ParentController {
 
     @ModelAttribute
     public void addUserToModel(@AuthenticationPrincipal User user, Model model) {
-        if (user != null) model.addAttribute("user", userRepo.findById(user.getId()));
+        if (user != null) {
+            model.addAttribute("user", userRepo.findById(user.getId()).orElseThrow(RuntimeException::new));
+        }
     }
 
     @ModelAttribute

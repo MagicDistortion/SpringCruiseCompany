@@ -11,16 +11,24 @@
             </li>
             <li><a href="/ships_list">[[#{Ships}]]</a>
                 <ul>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
+                    <th:block th:if="${user}">
+                        <th:block th:if="${user.role.toString=='[ADMIN]'}">
+                            <li><a href="/add_ship">[[#{AddShip}]]</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                        </th:block>
+                    </th:block>
                 </ul>
             </li>
             <li><a href="/cruises_list">[[#{Cruises}]]</a>
                 <ul>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
+                    <th:block th:if="${user}">
+                        <th:block th:if="${user.role.toString=='[ADMIN]'}">
+                            <li><a href="/add_cruise">[[#{AddCruise}]]</a></li>
+                            <li><a href="/add_route">[[#{AddRoute}]]</a></li>
+                            <li><a href="#">3</a></li>
+                        </th:block>
+                    </th:block>
                 </ul>
             </li>
             <th:block th:if="!${user}">
@@ -51,6 +59,8 @@
     background-attachment: fixed;
     background-size: 100% 100%;
     }
+
+
 </style>
 
 <div th:fragment="page(url,list)" style="display: flex;justify-content: center;">

@@ -2,6 +2,7 @@ package project.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -23,7 +24,6 @@ public class Ship {
     @Positive(message = "Value must be positive")
     private int capacity;
     private String image;
-
     public Ship(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;

@@ -11,7 +11,6 @@ public class MainController extends ParentController {
         return "index";
     }
     @GetMapping("/about_us")
-//    @PreAuthorize("hasAuthority('NOT_ASSIGNED')")
     public String aboutUs(Model model) {
         return "about_us";
     }
