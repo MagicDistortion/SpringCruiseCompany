@@ -13,23 +13,24 @@
 <br><br><br><br>
 <p class="text" align="center">[[#{AddShip}]]</p>
 
-<form action="/add_ship" method="post" th:object="${ship}" enctype="multipart/form-data">
+<form th:action="@{/add_ship}" method="post" th:object="${shipDTO}" enctype="multipart/form-data">
     <table class="blueTextSm" align="center">
         <th>[[#{EnterNameOfShip}]]&nbsp</th>
         <th>[[#{EnterCapacity}]]</th>
         <th>[[#{AddImage}]]</th>
         <tr>
             <td><input th:field="*{name}" class="btn btn-light" style="width:250px;" th:placeholder="#{EnterNameOfShip}"
-                       pattern="^[0-9A-Za-zА-Яа-яІіЇїєЄ\- ]{2,32}" required/></td>
+                       /></td>
             <td><input th:field="*{capacity}" type="number" class="btn btn-light"
-                       th:placeholder="#{EnterCapacity}" required/></td>
-            <td><input type="file" th:field="*{image}" required/></td>
+                       th:placeholder="#{EnterCapacity}" ></td>
+            <td><input type="file" name="image" accept="image/*" class="form-control-file" required/></td>
             <td><input type="submit" class="btn btn-info" th:value="#{AddShip}"/></td>
         </tr>
     </table>
     <div align="center">
         <p class="errorTextSm" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
         <p class="errorTextSm" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></p>
+        <p class="errorTextSm" th:if="${#fields.errors('global')}" th:errors="*{global}"></p>
     </div>
 </form>
 <th:block th:insert="~{blocks/header :: footer(position='absolute')}"></th:block>

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.dto.ShipDTO;
 
 import java.awt.print.Pageable;
 import java.io.Serializable;
@@ -14,18 +15,24 @@ import java.io.Serializable;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "ship ",uniqueConstraints = {@UniqueConstraint(columnNames = "id"), @UniqueConstraint(columnNames = "name")})
+@Table(name = "ship ", uniqueConstraints = {@UniqueConstraint(columnNames = "id"), @UniqueConstraint(columnNames = "name")})
 public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Size(min = 2,max = 32,message = "ShipName should be between 2 and 32 characters")
     private String name;
-    @Positive(message = "Value must be positive")
     private int capacity;
     private String image;
+
     public Ship(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
+        this.image = name + ".jpeg";
+    }
+
+    public Ship(ShipDTO shipDTO) {
+        this.name = shipDTO.getName();
+        this.capacity = shipDTO.getCapacity();
+        this.image = shipDTO.getName() + ".jpeg";
     }
 }
