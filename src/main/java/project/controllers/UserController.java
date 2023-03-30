@@ -92,4 +92,7 @@ public class UserController extends ParentController {
         model.addAttribute("success", getMessage("SuccessfulChanged"));
         return "edit_profile";
     }
+    public static void main(String[] args) {
+        System.out.println("hello");
+    }
 }
