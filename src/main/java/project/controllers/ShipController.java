@@ -30,8 +30,6 @@ public class ShipController extends ParentController {
     @Autowired
     private ShipRepo shipRepo;
     private static final String UPLOAD_DIRECTORY = "src/main/resources/static/images";
-
-
     @GetMapping("/ships_list")
     public String getAllShips(Model model, @PageableDefault(sort = "name", size = 5) Pageable pageable) {
         Page<Ship> shipsList = shipRepo.findAll(pageable);
