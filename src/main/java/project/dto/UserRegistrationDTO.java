@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @PasswordsSameConstraint
 public class UserRegistrationDTO {
     @Size(min = 2, max = 32, message = "Surname must be between 2 and 32 characters")
+//    @Size(min = 2, max = 32, message = "${blabla}")
     private String surname;
     @Size(min = 2, max = 32, message = "Name must be between 2 and 32 characters")
     private String name;

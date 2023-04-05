@@ -92,5 +92,5 @@ public class UserController extends ParentController {
         model.addAttribute("success", getMessage("SuccessfulChanged"));
         return "edit_profile";
     }
-    
+
 }

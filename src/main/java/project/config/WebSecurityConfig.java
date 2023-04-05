@@ -13,27 +13,25 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/index", "/about_us", "/contacts", "/ships_list", "/cruises_list"
-                                , "/registration", "/cruise_details/*", "/images/*", "/css/*", "/error/*").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/index")
-                        .permitAll()
-                )
-                .logout(LogoutConfigurer::permitAll)
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/index");;
-        return http.build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.authorizeHttpRequests((requests) -> requests
+                                .requestMatchers("/", "/index", "/about_us", "/contacts", "/ships_list",
+                                                "/cruises_list", "/registration", "/cruise_details/*", "/images/*",
+                                                "/css/*", "/error/*")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
+                                .formLogin((form) -> form.loginPage("/index").permitAll())
+                                .logout(LogoutConfigurer::permitAll)
+                                .logout(logout -> logout
+                                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                                .logoutSuccessUrl("/index"));
+                return http.build();
+        }
 
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder encoder() {
+                return new BCryptPasswordEncoder();
+        }
 }
