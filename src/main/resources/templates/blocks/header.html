@@ -11,31 +11,27 @@
             </li>
             <li><a href="/ships_list">[[#{Ships}]]</a>
                 <ul>
-                    <th:block th:if="${user}">
-                        <th:block th:if="${user.role.toString=='[ADMIN]'}">
-                            <li><a href="/add_ship">[[#{AddShip}]]</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                        </th:block>
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <li><a href="/add_ship">[[#{AddShip}]]</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
                     </th:block>
                 </ul>
             </li>
             <li><a href="/cruises_list">[[#{Cruises}]]</a>
                 <ul>
-                    <th:block th:if="${user}">
-                        <th:block th:if="${user.role.toString=='[ADMIN]'}">
-                            <li><a href="/add_cruise">[[#{AddCruise}]]</a></li>
-                            <li><a href="/add_route">[[#{AddRoute}]]</a></li>
-                            <li><a href="#">3</a></li>
-                        </th:block>
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <li><a href="/add_cruise">[[#{AddCruise}]]</a></li>
+                        <li><a href="/add_route">[[#{AddRoute}]]</a></li>
+                        <li><a href="#">3</a></li>
                     </th:block>
                 </ul>
             </li>
-            <th:block th:if="!${user}">
+            <th:block sec:authorize="!isAuthenticated()">
                 <li><a href="/registration">[[#{Register}]]</a></li>
                 <li><a href="/index">[[#{LogIn}]]</a></li>
             </th:block>
-            <th:block th:if="${user}">
+            <th:block sec:authorize="isAuthenticated()">
                 <li><a href="/edit_profile">[[#{EMP}]]</a></li>
                 <li><a href="#" th:href="@{/logout}">[[#{LogOut}]]</a></li>
             </th:block>
@@ -59,8 +55,6 @@
     background-attachment: fixed;
     background-size: 100% 100%;
     }
-
-
 </style>
 
 <div th:fragment="page(url,list)" style="display: flex;justify-content: center;">
