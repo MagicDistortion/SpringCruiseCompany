@@ -2,6 +2,7 @@ package project.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,10 +24,13 @@ import java.util.Collections;
 
 @Controller
 public class UserController extends ParentController {
-    @Autowired
     protected PasswordEncoder passwordEncoder;
+
     @Autowired
-    protected UserRepo userRepo;
+    public UserController(MessageSource messageSource, UserRepo userRepo, PasswordEncoder passwordEncoder) {
+        super(messageSource, userRepo);
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/registration")
     public String registration(UserRegistrationDTO userRegistrationDTO) {

@@ -2,6 +2,7 @@ package project.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,16 +18,19 @@ import project.models.Cruise;
 import project.models.Routes;
 import project.repos.CruiseRepo;
 import project.repos.RouteRepo;
+import project.repos.UserRepo;
 
 @Controller
 public class CruiseController extends ParentController {
-    @Autowired
-    private CruiseRepo cruiseRepo;
-    @Autowired
-    private RouteRepo routeRepo;
+    private final CruiseRepo cruiseRepo;
+    private final RouteRepo routeRepo;
 
     @Autowired
-    protected PasswordEncoder passwordEncoder;
+    public CruiseController(MessageSource messageSource, UserRepo userRepo, CruiseRepo cruiseRepo, RouteRepo routeRepo) {
+        super(messageSource, userRepo);
+        this.cruiseRepo = cruiseRepo;
+        this.routeRepo = routeRepo;
+    }
 
     @GetMapping("/cruises_list")
     public String getAllCruises(Model model, @PageableDefault(sort = "cruiseName", size = 5) Pageable pageable) {

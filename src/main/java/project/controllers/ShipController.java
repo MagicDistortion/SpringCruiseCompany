@@ -2,6 +2,7 @@ package project.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.dto.ShipDTO;
 import project.models.Ship;
 import project.repos.ShipRepo;
+import project.repos.UserRepo;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,9 +29,14 @@ import java.nio.file.Paths;
 
 @Controller
 public class ShipController extends ParentController {
-    @Autowired
-    private ShipRepo shipRepo;
+    private final ShipRepo shipRepo;
     private static final String UPLOAD_DIRECTORY = "src/main/resources/static/images";
+
+    @Autowired
+    public ShipController(MessageSource messageSource, UserRepo userRepo, ShipRepo shipRepo) {
+        super(messageSource, userRepo);
+        this.shipRepo = shipRepo;
+    }
     @GetMapping("/ships_list")
     public String getAllShips(Model model, @PageableDefault(sort = "name", size = 5) Pageable pageable) {
         Page<Ship> shipsList = shipRepo.findAll(pageable);

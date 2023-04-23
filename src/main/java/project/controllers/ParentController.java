@@ -11,10 +11,14 @@ import project.repos.UserRepo;
 
 
 public abstract class ParentController {
-    @Autowired
     protected MessageSource messageSource;
-    @Autowired
     protected UserRepo userRepo;
+
+    @Autowired
+    public ParentController(MessageSource messageSource, UserRepo userRepo) {
+        this.messageSource = messageSource;
+        this.userRepo = userRepo;
+    }
 
     @ModelAttribute
     public void addUserToModel(@AuthenticationPrincipal User user, Model model) {

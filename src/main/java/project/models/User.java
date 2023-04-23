@@ -1,8 +1,12 @@
 package project.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import project.dto.UserRegistrationDTO;
@@ -56,7 +60,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRole();
     }
-
 
     public User(String username, String password, String surname, String name, String tel, LocalDate dateOfBirth) {
         this.username = username;
